@@ -14,19 +14,7 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $this->dispatch($url);
         $this->assertRedirect('/bibliothouris/courses/list');
     }
-    public function testRoutingCoursesControllerOnLoginAction(){
-        $url = '/bibliothouris/courses/register/';
-        $this->dispatch($url);
 
-        $this->assertModule('bibliothourggggis');
-        $this->assertController('courses');
-        $this->assertAction('register');
-    }
-    public function testTiti(){
-        $this->assertEquals('a','s');
-    }
-
-/*
     public function testRoutingInexistingUriOnDefaultModule_ErrorController_ErrorIndex(){
         $url = '/inexistent/';
         $this->dispatch($url);
@@ -54,7 +42,14 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $this->assertAction('list');
     }
 
+    public function testRoutingCoursesControllerOnLoginAction(){
+        $url = '/bibliothouris/courses/register/';
+        $this->dispatch($url);
 
+        $this->assertModule('bibliothouris');
+        $this->assertController('courses');
+        $this->assertAction('register');
+    }
 
     public function testIfLoginPageContainsLoginForm(){
         $url = '/bibliothouris/courses/register/';
@@ -186,7 +181,6 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
 
         $this->assertLessThanOrEqual(1, $isEnrolled);
     }
-*/
 
 }
 
