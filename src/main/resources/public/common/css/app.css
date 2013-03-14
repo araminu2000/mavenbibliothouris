@@ -1,0 +1,271 @@
+/* Main App CSS File */
+body, html, * {margin:0 auto; font-family: verdana;}
+
+ul#menu {
+    width:150px;
+    margin-bottom: 10px;
+}
+
+.menu {
+    border-bottom: solid 1px #666666;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+    z-index: 999;
+}
+
+#main-wrapper {
+    width: 60%;
+}
+
+.application-header {
+    height: 30px;
+    margin-bottom: 10px;
+    background-color: #6E8DC3;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    border: solid 1px #757575;
+}
+
+.application-content {
+}
+
+
+.application-footer {
+    margin-top: 10px;
+    border: solid 1px #757575;
+    background-color: #6E8DC3;
+}
+
+.application-header > span.app-title-text {
+    color:#FFFFFF;
+    font-size:27px;
+    font-weight: bold;
+    float:left;
+    margin-left: 5px;
+}
+
+.application-header > span.app-title-logo {
+
+}
+
+.listing-tables {
+    font-size:13px;
+    margin-bottom: 10px;
+    width:400px;
+}
+
+.listing-tables thead, .listing-tables tfoot {
+    font-size: 12px;
+}
+
+.dataTables_wrapper {
+    width: 900px;
+    text-align: left;
+    margin-left: 0px;
+}
+.dataTables_filter,
+.dataTables_paginate,
+.dataTables_length,
+.dataTables_info {
+    font-size: 12px;
+}
+
+.dataTables_length select {
+    font-size: 12px !important;
+}
+
+.dataTables_filter input {
+    font-size: 12px !important;
+}
+
+
+.page-title {
+    color:#4867A7;
+    font-size:20px;
+    padding-bottom: 10px;
+}
+
+.small-course-details {
+    color:#4867A7;
+    font-size:15px;
+    padding-bottom: 10px;
+}
+
+div.forms {
+    margin-left: 0px;
+    font-size: 12px;
+	border:solid 1px #666666;
+    padding: 10px;
+	width:370px;
+}
+
+div.forms input.fieldsClass, 
+div.forms textarea {
+    width:200px;
+    font-size: 13px;
+}
+
+div.forms input.buttons {
+    border: solid 1px #757575;
+    background-color: #6E8DC3;
+    color:#ffffff;
+    padding: 2px;
+    width: 100px;
+	margin-top:10px;
+}
+
+div.forms #registerMemberSbt, div.forms #registerCourseSbt {
+	float:left;
+	margin-left:50px;
+}
+
+div.forms #registerMemberCancel, div.forms #registerCourseCancel {
+	margin-left:50px;
+}
+
+div.forms dt {
+	width:150px;
+	float:left;
+	font-size:13px;
+	margin-bottom:5px;
+	padding-left:8px;
+}
+
+div.forms dd  {
+	font-size:13px;
+	margin-bottom:5px;
+}
+
+/* hacks */
+#registerMemberCancel-label, 
+#registerMemberSbt-label,
+#registerCourseSbt-label,
+#registerCourseCancel-label
+{ display:none; }
+
+/* Style the contents course text area */
+
+.textAreaContents {
+    width: 150px;
+    height: 60px;
+}
+
+.error-messages {
+    background-color: #dddddd;
+    border: solid 1px #666666;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 10px;
+    width: 500px;
+}
+
+.error-messages .error-messages-title {
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.error-messages .error-messages-message {
+    font-size: 10px;
+    padding-left: 15px;
+    font-weight: 800;
+    color:#cd0a0a;
+}
+/* Register Course Form modification ( increased witdth/ height ) */
+
+#course-register {
+    width: 480px;
+}
+
+#course-details {
+    width: 480px;
+}
+
+#course-register .fieldsClass  {
+    width: 300px;
+}
+
+#course-register .textAreaContents {
+    width: 299px;
+    height: 150px;
+}
+/* Added error field hightlight */
+
+.errorField {
+    background-color: #EE5757;
+    border: solid 1px #CCCCCC;
+}
+
+.info-tables {
+    margin-left: 0;
+    width: 480px;
+}
+
+.info-tables .co-value .fieldsClass {
+    width:330px;
+    text-align: left;
+}
+
+.info-tables .textAreaContents {
+    width: 330px;
+    height: 150px;
+}
+
+.info-tables .co-label {
+    vertical-align: top;
+}
+
+.info-tables .co-buttons {
+    text-align: center;
+}
+
+.info-tables .co-buttons.right {
+    text-align: right;
+}
+
+a.buttons {
+    border: solid 1px #757575;
+    background-color: #6E8DC3;
+    color:#ffffff;
+    width: 100px;
+    text-decoration: none;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: middle;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.user-info-box {
+    float:right;
+    margin-right: 10px;
+    margin-top: 10px;
+    vertical-align: middle;
+    font-size: 12px;
+    font-family: verdana;
+}
+
+.user-info-box .user-fullname {
+    color:#fafafa;
+    margin-right: 5px;
+}
+
+.user-info-box .logout-user a {
+    color:#000000;
+    text-decoration: none;
+}
+
+.user-info-box .logout-user a:hover {
+    color:#FFFFFF;
+    text-decoration: underline;
+}
+
+.buttons.disabled-state {
+    background-color: #CCCCCC !important;
+}

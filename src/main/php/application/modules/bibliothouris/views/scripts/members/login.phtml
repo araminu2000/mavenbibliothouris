@@ -1,0 +1,10 @@
+<?php if ($this->msg) : ?>
+<div class="error-messages">
+    <h4 class="error-messages-title">Please correct the following:</h4>
+    <span class="error-messages-message"><?php echo $this->msg; ?></span>
+</div>
+
+<?php endif; ?>
+<div class="forms" id="course-register">
+    <?php echo $this->loginMemberForm; ?>
+</div>

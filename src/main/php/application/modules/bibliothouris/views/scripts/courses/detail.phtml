@@ -1,0 +1,52 @@
+<?php if ($this->courseInfo) : ?>
+<div class="page-title">Details For <?php echo $this->courseInfo['title']; ?></div>
+<!-- Course Details -->
+<div class="forms" id="course-details">
+    <table class="info-tables" border="0">
+        <tr>
+            <td class="co-label">Title:</td>
+            <td class="co-value" align="right">
+                <input type="text" class="fieldsClass" readonly="readonly" value="<?php echo $this->courseInfo['title']; ?>">
+            </td>
+        </tr>
+        <tr>
+            <td class="co-label">Date Start:</td>
+            <td class="co-value" align="right">
+                <input type="text" class="fieldsClass" readonly="readonly" value="<?php echo $this->courseInfo['dateStart']; ?>">
+            </td>
+        </tr>
+        <tr>
+            <td class="co-label">Date End:</td>
+            <td class="co-value" align="right">
+                <input type="text" class="fieldsClass" readonly="readonly"value="<?php echo $this->courseInfo['dateEnd']; ?>">
+            </td>
+        </tr>
+        <tr>
+            <td class="co-label">Trainer:</td>
+            <td class="co-value" align="right">
+                <input type="text" class="fieldsClass" readonly="readonly" value="<?php echo $this->courseInfo['trainer']; ?>">
+            </td>
+        </tr>
+        <tr>
+            <td class="co-label">Contents:</td>
+            <td class="co-value" align="right">
+                <textarea readonly="readonly" class="textAreaContents">
+                    <?php echo $this->courseInfo['trainer']; ?>
+                </textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="co-buttons left">
+                <input type="button" value="Back" class="buttons course-enrollment-back">
+            </td>
+            <td class="co-buttons right">
+                <?php if ($this->disableEnrollment) : ?>
+                    <input type="button" value="Enroll" class="buttons course-enrollment disabled-state" id="none" disabled="disabled">
+                <?php else: ?>
+                    <input type="button" value="Enroll" class="buttons course-enrollment" id="<?php echo $this->courseInfo['id']; ?>_<?php echo isset($this->currentUserId) ? $this->currentUserId : 0; ?>">
+                <?php endif; ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php endif; ?>

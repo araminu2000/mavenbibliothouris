@@ -1,0 +1,44 @@
+<?php echo $this->doctype()?>
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php echo $this->headTitle(); ?>
+    	<?php echo $this->headLink(); ?>
+    	<?php echo $this->headScript(); ?>
+    	<?php echo $this->headStyle(); ?>
+    </head>
+    <body>
+        <div id="holderBody">
+
+        	<!-- Container for messages -->
+            <div id="dialogAppMessage"></div>
+
+            <!-- General dialog container -->
+            <div id="dialog"></div>
+
+            <div id="main-wrapper">
+                <div class="application-header">
+                    <?php echo $this->partial('partial/header.phtml'); ?>
+                </div>
+
+                <div class="application-content">
+                    <div class="application-menu">
+                        <?php echo $this->partial('partial/main-menu.phtml'); ?>
+                    </div>
+                    <div class="application-table-forms">
+                        <?php echo $this->layout()->content; ?>
+                    </div>
+                </div>
+
+                <div class="application-footer">
+                    <?php echo $this->partial('partial/footer.phtml'); ?>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                Courses.Init();
+            });
+        </script>
+    </body>
+</html>

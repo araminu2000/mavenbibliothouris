@@ -1,0 +1,16 @@
+<span class="app-title-logo"></span>
+<span class="app-title-text">Courses App</span>
+<?php
+$session = new Zend_Session_Namespace('identity');
+
+if (isset($session->userData)) :
+?>
+<div class="user-info-box">
+    <span class="user-fullname"><?php echo $session->userData['fname'] . ' ' . $session->userData['lname']; ?></span>
+    <span class="logout-user"><a href="/bibliothouris/members/process-logout">Logout</a></span>
+</div>
+<?php else: ?>
+<div class="user-info-box">
+    <span class="logout-user"><a href="/bibliothouris/members/login">Login</a></span>
+</div>
+<?php endif; ?>

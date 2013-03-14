@@ -1,0 +1,10 @@
+<div class="page-title">Register a new course</div>
+<?php if ($this->errorMessages) : ?>
+    <div class="error-messages">
+        <h4 class="error-messages-title">Please correct the following:</h4>
+        <span class="error-messages-message"><?php echo $this->errorMessages; ?></span>
+    </div>
+<?php endif; ?>
+<div class="forms" id="course-register">
+    <?php echo $this->registerCourseForm; ?>
+</div>

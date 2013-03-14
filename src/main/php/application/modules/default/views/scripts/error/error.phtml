@@ -1,0 +1,26 @@
+<div class="ui-widget">
+    <div class="ui-corner-all msgBox">
+
+    <h1><span class="ui-icon ui-icon-info"></span>
+        <strong><?php echo $this->message ?></strong> <br>
+    </h1>
+
+    <?php  if ($this->debug && $this->displayExceptions) { ?>
+        <?php if (isset($this->exception)) { ?>
+        <a href="javascript:void(0);" onclick="$('.errorDetails').toggle()"><i>Error details</i></a>
+        <div class="errorDetails">
+            <h3>Message:</h3>
+            <pre><?php echo $this->exception->getMessage() ?></pre>
+            <br>
+            <h3>Trace:</h3>
+            <pre><?php echo $this->exception->getTraceAsString() ?>
+            </pre>
+            <br>
+            <h3>Request parameters:</h3>
+            <pre><?php echo $this->escape(var_export($this->request->getParams(), true)) ?>
+            </pre>
+        </div>
+        <?php } ?>
+    <?php } ?>
+    </div>
+</div>
