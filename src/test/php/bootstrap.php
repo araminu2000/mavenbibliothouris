@@ -16,6 +16,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath('/var/www/mavenbibliothouris/target/classes/application'),
+    realpath('/usr/share/php'),
+    realpath('/usr/share/pear'),
     get_include_path(),
 )));
 

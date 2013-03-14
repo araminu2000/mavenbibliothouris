@@ -26,11 +26,12 @@
 
     <build>
         <plugins>
-        	<plugin>
+
+            <plugin>
                 <groupId>org.phpmaven</groupId>
                 <artifactId>maven-php-plugin</artifactId>
                 <version>${phpmaven.plugin.version}</version>
-                
+
                 <configuration>
                     <outputPhpunitDirectory>${project.basedir}/target/site/</outputPhpunitDirectory>
                     <phpUnitArguments>--bootstrap ${project.basedir}/src/test/php/bootstrap.php</phpUnitArguments>
@@ -38,6 +39,7 @@
                     <!--<phpunitXml>${project.basedir}/src/main/resources/etc/phpunit.xml</phpunitXml>-->
                     <!--<phpunitXml>${project.basedir}/src/main/php/tests/phpunit.xml</phpunitXml>-->
                     <!--<phpunitXml>${project.basedir}/src/test/php/phpunit.xml</phpunitXml>-->
+
                 </configuration>
             </plugin>
 
