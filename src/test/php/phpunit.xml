@@ -1,0 +1,8 @@
+<phpunit bootstrap="./bootstrap.php">
+    <testsuite name="Default module Test Suite">
+        <directory>./application/modules/default</directory>
+    </testsuite>
+	<testsuite name="Bibliothouris module Test Suite">
+        <directory>./application/modules/bibliothouris</directory>
+    </testsuite>
+</phpunit>
