@@ -80,15 +80,17 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jsSrcDir>${project.basedir}/src/main/resources/public/common/jasmine</jsSrcDir>
+                    <jsSrcDir>${project.basedir}/src/main/resources/public/common</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/resources/public/js</jsTestSrcDir>
 
                     <sourceIncludes>
-                        <include>ext/jquery-1.6.4.js</include>
-                        <include>ext/jasmine-fixture.js</include>
-                        <include>ext/jasmine-jquery.js</include>
+                        <include>jasmine/ext/jquery-1.6.4.js</include>
+                        <include>jasmine/ext/jasmine-fixture.js</include>
+                        <include>jasmine/ext/jasmine-jquery.js</include>
+                        <include>jquery-ui/js/jquery-ui-1.10.1.custom.min.js</include>
+                        <include>datatable/media/js/jquery.dataTables.js</include>
 
-                        <include>to-test.js</include>
+                        <include>jasmine/bibliothouris.js</include>
                     </sourceIncludes>
                     <specIncludes>
                         <include>**/jasmine-*.js</include>
