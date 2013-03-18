@@ -2,47 +2,58 @@
 
 var Courses = (function(){
 
+
     var CONFIGS    =   {
 
-        DataTables    : {
-            Members :  {
+          DataTables    : {
+                  Members :  {
 
-                "aoColumns": [
-                    { "sTitle": "Name" }
-                ],
-                bJQueryUI : true
-            },
+                      "aoColumns": [
+                          { "sTitle": "Name" }
+                      ],
+                      bJQueryUI : true
+                  },
 
-            Courses : {
-                "aoColumns": [
-                    { "sTitle": "Date Start" },
-                    { "sTitle": "Date End" },
-                    { "sTitle": "Title"},
-                    { "sTitle": "Trainer"},
-                    { "sTitle": "&nbsp;"}
-                ],
-                bJQueryUI : true
-            }
-        },
+                  Courses : {
+                      "aoColumns": [
+                          { "sTitle": "Date Start" },
+                          { "sTitle": "Date End" },
+                          { "sTitle": "Title"},
+                          { "sTitle": "Trainer"},
+                          { "sTitle": "&nbsp;"}
+                      ],
+                      bJQueryUI : true
+                  },
 
-        Menu : { /* To be implemented some day in the future */ },
+                  Followed : {
+                      "aoColumns" : [
+                          { "sTitle" : "Date Start" },
+                          { "sTitle" : "Date End" },
+                          { "sTitle" : "Title" },
+                          { "sTitle" : "Trainer" }
+                      ],
+                      bJQueryUI : true
+                  }
+          },
 
-        DatePickers : {
-            Members : {
-                dateFormat : "yy-mm-dd"
-            }
-        },
+          Menu : { /* To be implemented some day in the future */ },
 
-        URLs : {
-            courseDetails : '/bibliothouris/courses/detail?id='
-        }
+          DatePickers : {
+                  Members : {
+                      dateFormat : "yy-mm-dd"
+                  }
+          },
+
+          URLs : {
+              courseDetails : '/bibliothouris/courses/detail?id='
+          }
 
     };
 
     var _initMainMenu   =   function() {
-        $( "ul#menu" ).menu();
+            $( "ul#menu" ).menu();
 
-        return true;
+            return true;
     };
 
     var _initDataTables =  {
@@ -55,9 +66,14 @@ var Courses = (function(){
             $('#members-list').dataTable(CONFIGS.DataTables.Members);
         },
 
+        Followed : function() {
+            $('#courses-followed-list').dataTable(CONFIGS.DataTables.Followed);
+        },
+
         All : function() {
             this.Courses();
             this.Members();
+            this.Followed();
         }
 
     };
@@ -71,7 +87,7 @@ var Courses = (function(){
             }
 
             if ($('#date_end').length > 0) {
-                $('#date_end').datepicker(CONFIGS.DatePickers.Members);
+               $('#date_end').datepicker(CONFIGS.DatePickers.Members);
             }
         }
 
@@ -84,6 +100,10 @@ var Courses = (function(){
 
         Members : function() {
             return $('#members-list').dataTable();
+        },
+
+        Followed: function() {
+            return $('#courses-followed-list').dataTable();
         }
     }
 
@@ -93,7 +113,7 @@ var Courses = (function(){
             a[i][4] = '<a href="'+ CONFIGS.URLs.courseDetails + a[i][4] + '" class="buttons">' + 'Details' + '</a>';
         }
 
-        return a;
+       return a;
     }
 
     return {
@@ -103,6 +123,7 @@ var Courses = (function(){
             _initMainMenu();
             _initDataTables.Courses();
             _initDataTables.Members();
+            _initDataTables.Followed();
             _initDatePickers.Courses();
 
             $('.course-enrollment').bind('click', Courses.handleEnrollButton);
@@ -121,9 +142,6 @@ var Courses = (function(){
 
             var courseId    =   vars[0];
             var memberId    =   vars[1];
-
-            console.log(courseId);
-            console.log(memberId);
 
             if(courseId && memberId) {
                 window.location = '/bibliothouris/courses/enroll?cid=' + courseId + '&mid=' + memberId;
@@ -156,8 +174,8 @@ var Courses = (function(){
             if(d && d instanceof Array) {
 
                 var tblMembers = _getDataTables.Members();
-                tblMembers.fnClearTable();
-                tblMembers.fnAddData(d);
+                    tblMembers.fnClearTable();
+                    tblMembers.fnAddData(d);
             }
         },
 
@@ -184,13 +202,43 @@ var Courses = (function(){
             if(d && d instanceof Array) {
 
                 var tblCourses = _getDataTables.Courses();
-                tblCourses.fnClearTable();
-                tblCourses.fnAddData(
-                    _prepareCoursesListTableData(d)
-                );
+                    tblCourses.fnClearTable();
+                    tblCourses.fnAddData(
+                        _prepareCoursesListTableData(d)
+                    );
 
             }
 
+        },
+
+        LoadFollowedCoursesListFromDb : function(url, callBack) {
+
+
+            var cbSend = Courses.HandleFollowedCoursesListLoadSuccess
+
+            if ('function' == typeof callBack) {
+                cbSend = callBack;
+            }
+
+            $.ajax({
+                dataType : "json",
+                url      : url,
+                success  : cbSend
+            });
+
+            delete callBack;
+            delete cbSend;
+        },
+
+        HandleFollowedCoursesListLoadSuccess : function(d) {
+
+            if(d && d instanceof Array) {
+
+                var tblCourses = _getDataTables.Followed();
+                tblCourses.fnClearTable();
+                tblCourses.fnAddData(d);
+
+            }
         }
     }
 

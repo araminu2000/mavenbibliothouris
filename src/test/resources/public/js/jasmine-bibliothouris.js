@@ -33,7 +33,7 @@ describe("Courses", function() {
 
     describe("Verify if courses list is correctly loaded via AJAX", function(){
 
-        it("Courses list function should be called", function() {
+        it("LoadCoursesListFromDb function should be called", function() {
 
             spyOn($, "ajax").andCallFake(function(options){
                 options.success();
@@ -51,7 +51,7 @@ describe("Courses", function() {
 
     describe("Verify if members list is correctly loaded via AJAX", function(){
 
-        it("Members list function should be called", function() {
+        it("LoadMembersListFromDb function should be called", function() {
 
             spyOn($, "ajax").andCallFake(function(options){
                 options.success();
@@ -60,6 +60,23 @@ describe("Courses", function() {
             var callBack = jasmine.createSpy();
 
             Courses.LoadMembersListFromDb(APP_URL, callBack);
+
+            expect(callBack).toHaveBeenCalled();
+
+        });
+    });
+    
+    describe("Verify if courses followed by a member are loaded via AJAX", function(){
+
+        it("LoadFollowedCoursesListFromDb function should be called", function() {
+
+            spyOn($, "ajax").andCallFake(function(options){
+                options.success();
+            });
+
+            var callBack = jasmine.createSpy();
+
+            Courses.LoadFollowedCoursesListFromDb(APP_URL, callBack);
 
             expect(callBack).toHaveBeenCalled();
 

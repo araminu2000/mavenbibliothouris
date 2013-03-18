@@ -23,6 +23,16 @@ var Courses = (function(){
                           { "sTitle": "&nbsp;"}
                       ],
                       bJQueryUI : true
+                  },
+
+                  Followed : {
+                      "aoColumns" : [
+                          { "sTitle" : "Date Start" },
+                          { "sTitle" : "Date End" },
+                          { "sTitle" : "Title" },
+                          { "sTitle" : "Trainer" }
+                      ],
+                      bJQueryUI : true
                   }
           },
 
@@ -56,9 +66,14 @@ var Courses = (function(){
             $('#members-list').dataTable(CONFIGS.DataTables.Members);
         },
 
+        Followed : function() {
+            $('#courses-followed-list').dataTable(CONFIGS.DataTables.Followed);
+        },
+
         All : function() {
             this.Courses();
             this.Members();
+            this.Followed();
         }
 
     };
@@ -85,6 +100,10 @@ var Courses = (function(){
 
         Members : function() {
             return $('#members-list').dataTable();
+        },
+
+        Followed: function() {
+            return $('#courses-followed-list').dataTable();
         }
     }
 
@@ -104,6 +123,7 @@ var Courses = (function(){
             _initMainMenu();
             _initDataTables.Courses();
             _initDataTables.Members();
+            _initDataTables.Followed();
             _initDatePickers.Courses();
 
             $('.course-enrollment').bind('click', Courses.handleEnrollButton);
@@ -189,6 +209,36 @@ var Courses = (function(){
 
             }
 
+        },
+
+        LoadFollowedCoursesListFromDb : function(url, callBack) {
+
+
+            var cbSend = Courses.HandleFollowedCoursesListLoadSuccess
+
+            if ('function' == typeof callBack) {
+                cbSend = callBack;
+            }
+
+            $.ajax({
+                dataType : "json",
+                url      : url,
+                success  : cbSend
+            });
+
+            delete callBack;
+            delete cbSend;
+        },
+
+        HandleFollowedCoursesListLoadSuccess : function(d) {
+
+            if(d && d instanceof Array) {
+
+                var tblCourses = _getDataTables.Followed();
+                tblCourses.fnClearTable();
+                tblCourses.fnAddData(d);
+
+            }
         }
     }
 

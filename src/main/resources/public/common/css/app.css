@@ -126,6 +126,10 @@ div.forms #registerMemberCancel, div.forms #registerCourseCancel {
 	margin-left:50px;
 }
 
+#registerCourseCancel.buttons.correction-left {
+    margin-left:100px;
+}
+
 div.forms dt {
 	width:150px;
 	float:left;
@@ -180,6 +184,7 @@ div.forms dd  {
 
 #course-register {
     width: 480px;
+    height: 310px;
 }
 
 #course-details {
@@ -297,4 +302,12 @@ a.buttons {
 
 .members-detail-button {
     float:right;
+}
+
+.user-info-email {
+    font-size: 12px;
+    width: auto;
+    margin-left: 0;
+    padding: 5px;
+    margin-bottom: 10px;
 }
