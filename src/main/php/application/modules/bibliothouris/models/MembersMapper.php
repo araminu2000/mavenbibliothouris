@@ -35,7 +35,7 @@ class Bibliothouris_Model_MembersMapper extends Bibliothouris_Model_AbstractMapp
 
         $result = $this->getDbTable()->find($id);
         if(0 == count($result)) {
-            throw new Zend_Exception("Member does not exist for id {$id}");
+            return array();
         }
 
         $row = $result->current();

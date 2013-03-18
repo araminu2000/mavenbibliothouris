@@ -69,9 +69,12 @@ class Bibliothouris_MembersController extends Zend_Controller_Action {
         $members = $membersMapper->fetchAll();
         $membersArray = array();
         foreach($members as $member) {
-            $membersArray[] = array(
-                $member->getFname() . ' ' . $member->getLname()
-            );
+
+            $line = '<a href="javascript:void(0);" class="members-name">' . $member->getFname() . ' ' . $member->getLname() . '</a> '
+                  . '<a href="/bibliothouris/courses/following?id=' . $member->getId() . '" class="members-detail-button buttons" id="' . $member->getId() . '">Detail</a>';
+
+
+            $membersArray[] = array($line);
         }
 
 		$this->_helper->layout->disableLayout();
@@ -116,18 +119,13 @@ class Bibliothouris_MembersController extends Zend_Controller_Action {
                 $session = new Zend_Session_Namespace('identity');
                 $session->userData = $userData[0];
 
-                // do redirect to last page.
+                /* do redirect to last page. */
                 $this->_redirect('bibliothouris/courses/list');
             } else {
-                // do redirect.
+                /* do redirect. */
                 $this->_redirect('bibliothouris/members/login?msg=' . urlencode('User Account is unknown or password is wrong.'));
             }
-
-        } else {
-            // problem with user params
-            // do nothing for now
         }
-
     }
 
     public function processLogoutAction() {

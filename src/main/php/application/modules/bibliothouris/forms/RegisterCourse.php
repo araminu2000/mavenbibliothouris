@@ -1,5 +1,6 @@
 <?php
 class Bibliothouris_Form_RegisterCourse extends Zend_Form {
+    public $disableEnrollment = false;
 
     public function init() {
 
@@ -50,6 +51,10 @@ class Bibliothouris_Form_RegisterCourse extends Zend_Form {
             ->removeDecorator('Errors');
         $this->addElement($element);
 
+        $element = new Zend_Form_Element_Hidden('id');
+        $element->removeDecorator('Errors');
+        $this->addElement($element);
+
         $element = new Zend_Form_Element_Textarea('content');
         $element->setLabel('Contents')
                 ->setAttrib('class', 'textAreaContents')
@@ -79,6 +84,31 @@ class Bibliothouris_Form_RegisterCourse extends Zend_Form {
             if(!empty($element)){
                 $element->setAttrib('class', $element->getAttrib('class') . ' errorField');
             }
+        }
+    }
+
+    public function setReadonly() {
+        foreach ($this->_elements as $element){
+            $element->setAttrib('readonly', 'readonly');
+            if(in_array($element->getName(),array('date_start','date_end'))){
+                $element->setAttrib('id', 'date_start_readonly');
+            }
+        }
+        $this->removeElement('registerCourseSbt');
+
+        $element = new Zend_Form_Element_Reset('enrollmentCourse');
+        $element->setLabel('Enroll')
+            ->setAttrib('class', 'buttons course-enrollment')
+            ->setAttrib('id', 'none');
+        $this->addElement($element);
+
+        if($this->disableEnrollment){
+            $element->setAttrib('disabled', 'disabled');
+            $element->setAttrib('class', $element->getAttrib('class') . ' disabled-state');
+        } else {
+            $session = new Zend_Session_Namespace('identity');
+            $sessionId = !empty($session->userData['id'])?$session->userData['id']:0;
+            $element->setAttrib('id', $this->_elements['id']->getValue().'_'.$sessionId);
         }
     }
 }

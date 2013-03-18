@@ -15,7 +15,7 @@ class Bibliothouris_Model_EnrollmentsMapper extends Bibliothouris_Model_Abstract
         }
 
         $result = array(
-            'record_id' => $model->getId(),
+            'id' => $model->getId(),
             'member_id' => $model->getMemberId(),
             'course_id' => $model->getCourseId()
         );
@@ -30,11 +30,11 @@ class Bibliothouris_Model_EnrollmentsMapper extends Bibliothouris_Model_Abstract
 
         $result = $this->getDbTable()->find($id);
         if(0 == count($result)) {
-            throw new Zend_Exception("Course does not exist for id {$id}");
+            return array();
         }
 
         $row = $result->current();
-        $model = new Bibliothouris_Model_Courses();
+        $model = new Bibliothouris_Model_Enrollments();
 
         $this->loadModel($row, $model);
 

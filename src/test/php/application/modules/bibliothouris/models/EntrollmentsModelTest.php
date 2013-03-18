@@ -18,7 +18,7 @@ class Bibliothouris_EnrollmentsModelsTest extends PHPUnit_Framework_TestCase {
     public function testFindByPKWithMapper() {
 
         $mapper  =  new Bibliothouris_Model_EnrollmentsMapper();
-        $results =  $mapper->find(1);
+        $results =  $mapper->find(31);
 
         $this->assertInstanceOf('Bibliothouris_Model_Enrollments', $results);
         $this->assertInstanceOf('Bibliothouris_Model_EnrollmentsMapper', $results->getMapper());

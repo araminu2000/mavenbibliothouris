@@ -269,3 +269,32 @@ a.buttons {
 .buttons.disabled-state {
     background-color: #CCCCCC !important;
 }
+
+#registerCourseCancel-label,
+#enrollmentCourse-label {
+    display: none;
+}
+
+#registerCourseCancel-element {
+    float: left;
+}
+
+#id-label {
+    display:none;
+}
+
+.buttons.course-enrollment {
+   margin-left:120px;
+}
+
+.members-name {
+    float:left;
+    text-decoration: none;
+    color: #000000;
+    cursor: default;
+    margin-top: 5px;
+}
+
+.members-detail-button {
+    float:right;
+}

@@ -91,9 +91,11 @@ class Bibliothouris_MembersControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $members = $membersMapper->fetchAll();
         $membersArray = array();
         foreach($members as $member) {
-            $membersArray[] = array(
-                $member->getFname() . ' ' . $member->getLname()
-            );
+
+            $line = '<a href="javascript:void(0);" class="members-name">' . $member->getFname() . ' ' . $member->getLname() . '</a> '
+                  . '<a href="/bibliothouris/courses/following?id=' . $member->getId() . '" class="members-detail-button buttons" id="' . $member->getId() . '">Detail</a>';
+
+            $membersArray[] = array($line);
         }
 
         $httpResponse = $this->getResponse();
@@ -133,8 +135,8 @@ class Bibliothouris_MembersControllerTest extends Zend_Test_PHPUnit_ControllerTe
 
         $this->request->setMethod('POST')
             ->setPost(array(
-            'email'             => 'test@users.com',
-            'password'          => 'Password100',
+            'email'             => 'araminu2001@yahoo.com',
+            'password'          => 'macara0&',
         ));
 
         $url = '/bibliothouris/members/process-login';

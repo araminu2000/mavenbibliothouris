@@ -21,6 +21,26 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
         $this->view->headTitle()->headTitle('Courses list Title');
     }
 
+    public function followingAction() {
+
+        $m = $this->getRequest()->getParam('id', null);
+
+        if (intval($m) <= 0) {
+            $this->_redirect('/bibliothouris/members/list/');
+        }
+
+        $membersMapper = new Bibliothouris_Model_MembersMapper();
+        $result        = $membersMapper->find($m);
+
+        if (empty($result)) {
+            $this->_redirect('/bibliothouris/members/list/');
+        }
+
+        $dataArray = $membersMapper->toArray($result);
+        $this->view->memberData = $dataArray;
+        $this->view->headTitle()->headTitle('Courses followed by ' . $dataArray['fname'] . ' ' . $dataArray['lname']);
+    }
+
     public function registerAction() {
         $registerCourseForm = new Bibliothouris_Form_RegisterCourse();
         $registerCourseForm->setAction($this->getFrontController()->getBaseUrl() . '/bibliothouris/courses/register-save');
@@ -124,37 +144,27 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
 
         $courseId = $this->getRequest()->getParam('id', null);
 
-        if (is_null($courseId)) {
+        if (intval($courseId) == 0) {
             $this->_redirect('bibliothouris/courses/index');
         }
 
         $coursesMapper = new Bibliothouris_Model_CoursesMapper();
         $results       = $coursesMapper->find($courseId);
-
-
-        $this->view->headTitle()->headTitle('View Details for ' . $results->getTitle());
-        $this->view->courseInfo = array(
-            'title'      => $results->getTitle(),
-            'dateStart'  => $results->getDateStart(),
-            'dateEnd'    => $results->getDateEnd(),
-            'trainer'    => $results->getTrainerName(),
-            'contents'   => $results->getContent(),
-            'id'         => $results->getId()
-        );
+        $registerCourseForm = new Bibliothouris_Form_RegisterCourse();
+        $registerCourseForm->setAction('#');
+        $registerCourseForm->populate($coursesMapper->toArray($results));
 
         if (date("Y-m-d") > $results->getDateStart()) {
-            $this->view->disableEnrollment = true;
+            $registerCourseForm->disableEnrollment = true;
         }
 
-        $session = new Zend_Session_Namespace('identity');
-
-        if (isset($session->userData)) {
-            $this->view->currentUserId = $session->userData['id'];
-        }
+        $registerCourseForm->setReadonly();
+        $this->view->registerCourseForm = $registerCourseForm;
+        $this->view->headTitle('View Details for ' . $results->getTitle());
     }
 
     public function ajaxListCoursesAction() {
-        
+
         $coursesMapper = new Bibliothouris_Model_CoursesMapper();
         $courses = $coursesMapper->fetchAll();
         $coursesArray = array();
@@ -174,6 +184,32 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
         $this->_helper->viewRenderer->setNoRender();
         echo $this->_helper->json($coursesArray, false);
 
+    }
+
+    public function ajaxListFollowingAction() {
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $member_id = $this->getRequest()->getParam('m', null);
+        $outputArr = array();
+
+        if (intval($member_id) > 0) {
+
+            $coursesMapper = new Bibliothouris_Model_CoursesMapper();
+            $courses = $coursesMapper->getCoursesFollowedByMemberId($member_id);
+
+            foreach($courses as $course) {
+                $outputArr[] = array(
+                    $course['date_start'],
+                    $course['date_end'],
+                    $course['title'],
+                    $course['trainer_name'],
+                );
+            }
+        }
+
+        echo $this->_helper->json($outputArr, false);
     }
 
 }

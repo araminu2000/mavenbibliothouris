@@ -47,10 +47,10 @@ INSERT INTO `courses` VALUES ('3', 'PHP Engeneering', '2013-04-01', '2013-04-04'
 -- ----------------------------
 DROP TABLE IF EXISTS `enrollments`;
 CREATE TABLE `enrollments` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `member_id` int(11) NOT NULL,
   `course_id` int(11) NOT NULL,
-  PRIMARY KEY (`record_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------

@@ -50,6 +50,24 @@ class Bibliothouris_Model_CoursesMapper extends Bibliothouris_Model_AbstractMapp
         return $model;
     }
 
+    public function getCoursesFollowedByMemberId($memberId) {
+
+        if (!is_numeric($memberId)) {
+            throw new Zend_Exception('Member id is not set');
+        }
+
+        $select = $this->getAdapter()->select()
+            ->from( array('e' => 'enrollments'), array('member_id') )
+            ->join( array('c' => 'courses'), 'e.course_id = c.id', array('*') )
+            ->join( array('m' => 'members'), 'm.id = e.member_id', array() )
+            ->where('m.id = ?', $memberId);
+
+        $results = $this->getAdapter()->fetchAll($select);
+
+        return $results;
+
+    }
+
     public function courseStarted($id) {
 
         $results = $this->getDbTable()->fetchSelect();

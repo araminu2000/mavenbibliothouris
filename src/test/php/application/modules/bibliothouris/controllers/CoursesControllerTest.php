@@ -33,6 +33,16 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $this->assertAction('list');
     }
 
+    public function testRoutingCoursesControllerOnFollowingActionWithoutMemberId() {
+
+        $url = '/bibliothouris/courses/following/';
+        $this->dispatch($url);
+
+        $this->assertModule('default');
+        $this->assertController('error');
+        $this->assertAction('error');
+    }
+
     public function testRoutingCoursesControllerOnIndexActionIfActionNotSet(){
         $url = '/bibliothouris/courses/';
         $this->dispatch($url);
@@ -133,8 +143,8 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
 
     public function testEnrollmentMemberToCourseFromStartToEnd() {
 
-        $cid = 43;
-        $mid = 46;
+        $cid = 41;
+        $mid = 11;
 
         $url = '/bibliothouris/courses/enroll?cid=' . $cid . '&mid=' . $mid;
         $this->dispatch($url);

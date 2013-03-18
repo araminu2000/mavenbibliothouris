@@ -3,7 +3,7 @@
 class Bibliothouris_Model_DbTable_Enrollments extends Bibliothouris_Model_DbTable_AbstractTable {
 
     protected $_name     = 'enrollments';
-    protected $_id       = 'record_id';
+    protected $_id       = 'id';
     protected $_sequence = true;
 
     protected function _setupDatabaseAdapter() {
