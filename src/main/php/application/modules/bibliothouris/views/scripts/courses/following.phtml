@@ -1,0 +1,13 @@
+<div class="page-title"><?php echo $this->headTitle()->getContainer()->getValue();?></div>
+<div class="user-info-email">
+        <strong>Email</strong> :
+        <a href="mailto:<?php echo $this->memberData['email']; ?>"><?php echo $this->memberData['email']; ?></a>
+</div>
+<table class="listing-tables" id="courses-followed-list">
+    <thead></thead>
+    <tbody></tbody>
+    <tfoot></tfoot>
+</table>
+<script type="text/javascript">
+    Courses.LoadFollowedCoursesListFromDb('<?php $this->baseUrl;?>/bibliothouris/courses/ajax-list-following/?m=<?php echo $this->memberData['id']; ?>');
+</script>
