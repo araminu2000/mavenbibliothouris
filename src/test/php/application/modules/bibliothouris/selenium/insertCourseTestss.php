@@ -7,8 +7,7 @@ class ExampleTest extends PHPUnit_Extensions_SeleniumTestCase {
  
 public function setUp() {
         $this->setBrowser('*firefox');
-        $this->setPort(4444);
-        $this->setBrowserUrl('http://www1.mavencourses.ro/');
+        $this->setBrowserUrl('http://www.emag.ro');
 }
  
 public function provider() {

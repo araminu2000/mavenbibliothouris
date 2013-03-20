@@ -33,6 +33,24 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $this->assertAction('list');
     }
 
+    public function testRoutingCoursesFeedbackControllerOnIndexAction(){
+        $url = '/bibliothouris/courses/feedback/?course_id=1';
+        $this->dispatch($url);
+
+        $this->assertModule('bibliothouris');
+        $this->assertController('courses');
+        $this->assertAction('feedback');
+    }
+
+    public function testRoutingCoursesFeedbackOnCoursesListIfNoCourseAction(){
+        $url = '/bibliothouris/courses/feedback';
+        $this->dispatch($url);
+
+        $this->assertModule('default');
+        $this->assertController('error');
+        $this->assertAction('error');
+    }
+
     public function testRoutingCoursesControllerOnFollowingActionWithoutMemberId() {
 
         $url = '/bibliothouris/courses/following/';
@@ -79,23 +97,25 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $url = '/bibliothouris/courses/ajax-list-courses/';
         $this->dispatch($url);
 
-
         $coursesMapper = new Bibliothouris_Model_CoursesMapper();
         $courses = $coursesMapper->fetchAll();
         $coursesArray = array();
+
         foreach($courses as $course) {
+
             $coursesArray[] = array(
                 $course->getDateStart(),
                 $course->getDateEnd(),
                 $course->getTitle(),
                 $course->getTrainerName(),
-                $course->getId()
+                $course->getId(),
+                null
             );
         }
 
         $httpResponse = $this->getResponse();
 
-        $this->assertEquals($httpResponse->getBody(),Zend_Json::encode($coursesArray));
+        $this->assertEquals($httpResponse->getBody(), Zend_Json::encode($coursesArray));
         $this->assertHeaderContains('Content-Type', 'application/json');
         $this->assertResponseCode(200, null);
     }
@@ -170,11 +190,9 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
         $url = '/bibliothouris/courses/enroll';
         $this->dispatch($url);
 
-        $responseHeaders = $this->response->getHeaders();
-        $this->assertTrue(count($responseHeaders) != 0);
-        $this->assertArrayHasKey('value', $responseHeaders[0]);
-
-        $this->assertEquals('/bibliothouris/courses/index', $responseHeaders[0]['value']);
+        $this->assertModule('bibliothouris');
+        $this->assertController('courses');
+        $this->assertAction('enroll');
     }
 
     public function testEnrollControllerDispatchIfStudentIsAlreadyEnrolled() {

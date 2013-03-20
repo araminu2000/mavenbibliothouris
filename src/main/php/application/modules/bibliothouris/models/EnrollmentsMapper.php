@@ -59,6 +59,28 @@ class Bibliothouris_Model_EnrollmentsMapper extends Bibliothouris_Model_Abstract
         return $result;
     }
 
+    public function getAllByMember($mid) {
+
+        if (!is_numeric($mid)) {
+            return false;
+        }
+
+        $select = $this->getAdapter()->select()
+            ->from('enrollments', array('id', 'course_id'))
+            ->where('member_id = ?' , $mid);
+
+        $results     = $this->getAdapter()->fetchAll($select);
+        $coursesIds  = array();
+
+        while (list($key, $val) = each($results)) {
+            $coursesIds[] = $val['course_id'];
+        }
+
+        unset($results);
+
+        return $coursesIds;
+    }
+
     public function loadModel($data, &$entry = null) {
 
         if(!is_array($data) && !$data instanceof Zend_Db_Table_Row_Abstract && !$data instanceof stdClass) {

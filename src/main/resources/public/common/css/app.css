@@ -276,7 +276,10 @@ a.buttons {
 }
 
 #registerCourseCancel-label,
-#enrollmentCourse-label {
+#enrollmentCourse-label,
+#registerCourseCancel-label,
+#registerCourseSbt-label
+{
     display: none;
 }
 
@@ -310,4 +313,67 @@ a.buttons {
     margin-left: 0;
     padding: 5px;
     margin-bottom: 10px;
+}
+/*feedback*/
+div.forms #feedbackForm dd label {
+    vertical-align: middle;
+}
+
+div.forms #feedbackForm dd label  > input {
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+div.forms #feedbackForm dt {
+    width:200px;
+    font-size: 13px;
+}
+
+textarea.errorRadio {
+    border: none;
+    background: #EE5757;
+}
+
+.errorRadio {
+    background: transparent;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    outline: solid 2px #EE5757;
+    border: solid 1px #EE5757;
+}
+
+
+/* Buttons */
+
+.buttons_second {
+    border: solid 1px #757575;
+    background-color: #6E8DC3;
+    color:#ffffff;
+    margin-top: 10px;
+    padding: 2px;
+    width: 100px;
+}
+
+div.forms #feedbackForm #registerCourseCancel-element ,
+div.forms #feedbackForm #registerCourseSbt-element {
+    width: 100px;
+    float: left;
+}
+
+div.forms #feedbackForm #registerCourseCancel-element {
+    margin-left: 70px;
+}
+
+div.forms #feedbackForm #registerCourseCancel-label,
+div.forms #feedbackForm #registerCourseSbt-label,
+div.forms #feedbackForm #course_id-label {
+    display: none;
+}
+
+div.forms #feedbackForm #score_content {
+  width: 250px;
+  margin-left: 10px;
+  margin-top: 10px;
+  vertical-align: middle;
 }

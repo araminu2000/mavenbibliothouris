@@ -20,7 +20,8 @@ var Courses = (function(){
                           { "sTitle": "Date End" },
                           { "sTitle": "Title"},
                           { "sTitle": "Trainer"},
-                          { "sTitle": "&nbsp;"}
+                          { "sTitle": "Details"},
+                          { "sTitle": "Feedback"}
                       ],
                       bJQueryUI : true
                   },
@@ -45,7 +46,8 @@ var Courses = (function(){
           },
 
           URLs : {
-              courseDetails : '/bibliothouris/courses/detail?id='
+              courseDetails : '/bibliothouris/courses/detail?id=',
+              courseFeedback : '/bibliothouris/courses/feedback?course_id='
           }
 
     };
@@ -108,9 +110,14 @@ var Courses = (function(){
     }
 
     var _prepareCoursesListTableData = function(a) {
-
         for (var i  = 0 ; i< a.length; i++) {
             a[i][4] = '<a href="'+ CONFIGS.URLs.courseDetails + a[i][4] + '" class="buttons">' + 'Details' + '</a>';
+
+            if (a[i][5]) {
+                a[i][5] = '<a href="'+ CONFIGS.URLs.courseFeedback + a[i][5] + '" class="buttons">' + 'Feedback' + '</a>';
+            } else {
+                a[i][5] = '';
+            }
         }
 
        return a;

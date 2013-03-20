@@ -1,8 +1,11 @@
 <?php
 class Bibliothouris_CoursesController extends Zend_Controller_Action {
 
+    protected $_session;
+
     public function init() {
 		$this->_helper->layout->setLayout('layout');
+        $this->_session = new Zend_Session_Namespace("identity");
     }
 
     public function preDispatch() {
@@ -39,6 +42,64 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
         $dataArray = $membersMapper->toArray($result);
         $this->view->memberData = $dataArray;
         $this->view->headTitle()->headTitle('Courses followed by ' . $dataArray['fname'] . ' ' . $dataArray['lname']);
+    }
+
+    public function feedbackAction(){
+        $courseId = $this->getRequest()->getParam('course_id',null);
+
+        if (empty($this->_session->userData) || intval($this->_session->userData['id']) == 0){
+            $this->_redirect('/bibliothouris/members/login/');
+        }
+
+        if(intval($courseId) <= 0){
+            $this->_redirect('/bibliothouris/courses/list/');
+        }
+
+        $coursesMapper = new Bibliothouris_Model_CoursesMapper();
+        $results       = $coursesMapper->find($courseId);
+
+        $this->view->headTitle()->headTitle('Register feedback on course ' . $results->getTitle() . ' (<i>'.$results->getDateStart().' - '.$results->getDateEnd().'</i>)');
+
+        $feedbackCourseForm = new Bibliothouris_Form_FeedbackCourse();
+        $feedbackCourseForm->setAction($this->getFrontController()->getBaseUrl() . '/bibliothouris/courses/feedback-save');
+        $feedbackCourseForm->setPrevalidation();
+        $this->view->feedbackCourseForm = $feedbackCourseForm;
+    }
+
+    public function feedbackSaveAction(){
+        if (empty($this->_session->userData) || intval($this->_session->userData['id']) == 0){
+            $this->_redirect('/bibliothouris/members/login/');
+        }
+
+        $errMessages = array();
+
+        $request = $this->getRequest();
+        $form    = new Bibliothouris_Form_FeedbackCourse();
+
+        if ($this->getRequest()->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $coursesMapper = new Bibliothouris_Model_CoursesFeedbackMapper();
+                $requestInfo = $request->getPost();
+                $requestInfo['member_id'] = $this->_session->userData['id'];
+                $coursesModel = $coursesMapper->loadModel($requestInfo);
+
+                $coursesModel->getMapper()->getDbTable()->insert(
+                    $coursesModel->getMapper()->toArray($coursesModel)
+                );
+            } else {
+                $errMessages = $form->getMessages();
+            }
+        }
+
+        foreach($errMessages as $k => $v) {
+            $this->view->errorMessages = implode('<br />', $v);
+        }
+
+        if (empty($errMessages)) {
+            $this->_redirect('bibliothouris/courses/index');
+        } else {
+            $this->_forward('feedback');
+        }
     }
 
     public function registerAction() {
@@ -91,13 +152,11 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
         $courseId = $this->getRequest()->getParam('cid', null);
         $memberId = $this->getRequest()->getParam('mid', null);
 
-        $session = new Zend_Session_Namespace("identity");
-
         if (is_null($courseId) || is_null($memberId)) {
-            $this->_redirect('bibliothouris/courses/index');
+            $this->_redirect('bibliothouris/courses/list');
         }
 
-        if (array_key_exists('id', $session->userData) && count($session->userData)) {
+        if (count($this->_session->userData) && array_key_exists('id', $this->_session->userData) ) {
 
             $enrollmentsMapper = new Bibliothouris_Model_EnrollmentsMapper();
 
@@ -165,17 +224,29 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
 
     public function ajaxListCoursesAction() {
 
+        $coursesArray = array();
+        
         $coursesMapper = new Bibliothouris_Model_CoursesMapper();
         $courses = $coursesMapper->fetchAll();
-        $coursesArray = array();
+
+        $enrollMentsMapper = new Bibliothouris_Model_EnrollmentsMapper();
+        $enrolledIn = $enrollMentsMapper->getAllByMember( (int) $this->_session->userData['id'] );
+
         foreach($courses as $course) {
+
+            $feedbackId = null;
+
+            if (date("Y-m-d") > $course->getDateEnd() && in_array($course->getId(), $enrolledIn)) {
+                $feedbackId = $course->getId();
+            }
 
             $coursesArray[] = array(
                 $course->getDateStart(),
                 $course->getDateEnd(),
                 $course->getTitle(),
                 $course->getTrainerName(),
-                $course->getId()
+                $course->getId(),
+                $feedbackId
             );
 
         }
