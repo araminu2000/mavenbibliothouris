@@ -135,7 +135,7 @@ class Bibliothouris_MembersControllerTest extends Zend_Test_PHPUnit_ControllerTe
 
         $this->request->setMethod('POST')
             ->setPost(array(
-            'email'             => 'araminu2001@yahoo.com',
+            'email'             => 'araminu2000@yahoo.com',
             'password'          => 'macara0&',
         ));
 

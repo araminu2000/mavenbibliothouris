@@ -1,24 +1,28 @@
 <?php
 
-class Bibliothouris_MembersModelsTest extends PHPUnit_Framework_TestCase {
+class Bibliothouris_MembersModelsTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     protected $_model;
 
-    public function setUp() {
-
+    public function setUp()
+    {
+        $this->bootstrap = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
+        parent::setUp();
         $this->_model = new Bibliothouris_Model_DbTable_Members();
     }
 
-    public function testFindByPKWithDbTable() {
+    public function testFindByPKWithDbTable()
+    {
         $createResult = $this->_model->find(1);
         $this->assertInstanceOf('Zend_Db_Table_Rowset', $createResult);
         $this->assertNotNull($createResult->toArray());
     }
 
-    public function testFindByPKWithMapper() {
+    public function testFindByPKWithMapper()
+    {
 
         $mapper  =  new Bibliothouris_Model_MembersMapper();
-        $results =  $mapper->find(11);
+        $results =  $mapper->find(1);
 
         $this->assertInstanceOf('Bibliothouris_Model_Members', $results);
         $this->assertInstanceOf('Bibliothouris_Model_MembersMapper', $results->getMapper());

@@ -163,8 +163,8 @@ class Bibliothouris_CoursesControllerTest extends Zend_Test_PHPUnit_ControllerTe
 
     public function testEnrollmentMemberToCourseFromStartToEnd() {
 
-        $cid = 41;
-        $mid = 11;
+        $cid = 1;
+        $mid = 1;
 
         $url = '/bibliothouris/courses/enroll?cid=' . $cid . '&mid=' . $mid;
         $this->dispatch($url);

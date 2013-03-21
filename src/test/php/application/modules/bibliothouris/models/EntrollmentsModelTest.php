@@ -1,11 +1,13 @@
 <?php
 
-class Bibliothouris_EnrollmentsModelsTest extends PHPUnit_Framework_TestCase {
+class Bibliothouris_EnrollmentsModelsTest extends Zend_Test_PHPUnit_ControllerTestCase {
 
     protected $_model;
 
-    public function setUp() {
-
+    public function setUp()
+    {
+        $this->bootstrap = new Zend_Application(APPLICATION_ENV, APPLICATION_PATH . '/configs/application.ini');
+        parent::setUp();
         $this->_model = new Bibliothouris_Model_DbTable_Enrollments();
     }
 
@@ -18,7 +20,7 @@ class Bibliothouris_EnrollmentsModelsTest extends PHPUnit_Framework_TestCase {
     public function testFindByPKWithMapper() {
 
         $mapper  =  new Bibliothouris_Model_EnrollmentsMapper();
-        $results =  $mapper->find(31);
+        $results =  $mapper->find(1);
 
         $this->assertInstanceOf('Bibliothouris_Model_Enrollments', $results);
         $this->assertInstanceOf('Bibliothouris_Model_EnrollmentsMapper', $results->getMapper());
