@@ -3,7 +3,7 @@ require_once 'PHPUnit/Extensions/SeleniumTestCase.php';
 require_once 'PHPUnit/Extensions/SeleniumTestCase/Driver.php';
 require_once 'PHPUnit/Extensions/SeleniumTestSuite.php';
  
-class ExampleTest extends PHPUnit_Extensions_SeleniumTestCase {
+class SeleniumProvideFeedbackTest extends PHPUnit_Extensions_SeleniumTestCase {
  
 public function setUp() {
         $this->setBrowser('*firefox');
@@ -17,7 +17,7 @@ public function provider() {
 /**
 * @dataProvider provider
 */
-public function test_example($data) {
+public function testSeleniumProvideFeedback($data) {
 	
       $this->open($data[0]);
       $this->clickAndWait('//*[@id="main-wrapper"]/div[1]/div/span/a');
