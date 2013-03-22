@@ -1,0 +1,50 @@
+<?php echo $this->doctype()?>
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php echo $this->headTitle(); ?>
+        <style>
+            .application-header{
+                background-color: #6E8DC3;
+                border: 1px solid #757575;
+                height: 30px;
+                margin-bottom: 10px;
+                padding-bottom: 10px;
+                padding-top: 5px;
+            }
+            .application-footer{
+                background-color: #6E8DC3;
+                border: 1px solid #757575;
+                margin-top: 10px;
+            }
+            #main-wrapper{
+                width:60%;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <div id="main-wrapper">
+                <div class="application-header">
+                    <?php echo $this->partial('partial/header_email.phtml'); ?>
+                </div>
+
+                <div class="application-content">
+                    <div class="application-table-forms">
+                        <br /><br />
+                        <p><?php echo $this->layout()->mailInfo['name']; ?>,</p><br />
+                        <p>Thanks for enrolling to course <i>`<?php echo $this->layout()->mailInfo['title']; ?>`</i>. As you already know this has just finished.</p>
+                        <br />
+                        <p>Please provide feedback regarding the course following the link below:</p>
+                        <p><a href="http://www.bibliothouris.ro">www.bibliothouris.ro</a></p>
+                        <br /><br />
+                    </div>
+                </div>
+
+                <div class="application-footer">
+                    <?php echo $this->partial('partial/footer.phtml'); ?>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

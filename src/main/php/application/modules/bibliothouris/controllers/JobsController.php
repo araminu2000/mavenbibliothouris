@@ -14,7 +14,8 @@ class Bibliothouris_JobsController extends Zend_Controller_Action {
     }
 
     public function sendFeedbackMailsAction() {
-		echo 'okokok';
+        $coursesFeedbackMapper = new Bibliothouris_Model_CoursesFeedbackMailMapper();
+        $coursesFeedbackMapper->processFeedbackMails();
     }
 
     public function postDispatch() {
