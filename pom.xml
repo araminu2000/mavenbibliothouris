@@ -26,23 +26,16 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.phpmaven</groupId>
                 <artifactId>maven-php-plugin</artifactId>
                 <version>${phpmaven.plugin.version}</version>
 
                 <configuration>
-                    <outputPhpunitDirectory>${project.basedir}/target/site/</outputPhpunitDirectory>
-                    <phpUnitArguments>--bootstrap ${project.basedir}/src/test/php/bootstrap.php</phpUnitArguments>
-                    <!--<testFolder>${project.basedir}/test</testFolder>-->
-                    <!--<phpunitXml>${project.basedir}/src/main/resources/etc/phpunit.xml</phpunitXml>-->
-                    <!--<phpunitXml>${project.basedir}/src/main/php/tests/phpunit.xml</phpunitXml>-->
-                    <!--<phpunitXml>${project.basedir}/src/test/php/phpunit.xml</phpunitXml>-->
-
+                    <outputPhpunitDirectory>${project.basedir}/target/phpunit-reports/</outputPhpunitDirectory>
+                    <phpUnitArguments>--bootstrap="${project.basedir}/src/test/php/bootstrap.php"</phpUnitArguments>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
@@ -54,15 +47,6 @@
                             <groupId>org.phpmaven</groupId>
                             <artifactId>maven-php-plugin</artifactId>
                             <version>${phpmaven.plugin.version}</version>
-                            <reportSets>
-                                <reportSet>
-                                    <reports>
-                                        <report>phpdocumentor</report>
-                                        <report>phpunit-coverage</report>
-                                        <report>phpunit</report>
-                                    </reports>
-                                </reportSet>
-                            </reportSets>
                         </plugin>
                     </reportPlugins>
                 </configuration>
@@ -81,14 +65,12 @@
                 <configuration>
                     <jsSrcDir>${project.basedir}/src/main/resources/public/common</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/resources/public/js</jsTestSrcDir>
-
                     <sourceIncludes>
                         <include>jasmine/ext/jquery-1.6.4.js</include>
                         <include>jasmine/ext/jasmine-fixture.js</include>
                         <include>jasmine/ext/jasmine-jquery.js</include>
                         <include>jquery-ui/js/jquery-ui-1.10.1.custom.min.js</include>
                         <include>datatable/media/js/jquery.dataTables.js</include>
-
                         <include>jasmine/bibliothouris.js</include>
                     </sourceIncludes>
                     <specIncludes>
@@ -120,7 +102,6 @@
 			        </systemProperties>
 			    </configuration>
 			</plugin>
-			
 			<plugin>
                 <groupId>org.phpmaven</groupId>
                 <artifactId>maven-php-dependency</artifactId>
@@ -139,10 +120,34 @@
                     </dependencies>
                 </configuration>
             </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <configuration>
+                           <target name="PHP_CodeSniffer_Name" description="This will check for php coding standard">
+								<!--Zend coding standard documentation : `http://framework.zend.com/manual/1.12/en/coding-standard.html`-->
+								<echo>PHP Code Sniffer</echo>
+								<exec executable="phpcs" failonerror="true">
+									<arg value="--report=full" />
+									<arg value="--extensions=php" />
+									<arg value="--standard=Zend" />
+                                    <arg path="${project.basedir}/target/classes/public/common/css" />
+									<!--<arg path="${project.basedir}/target/classes/application" />-->
+								</exec>
+							</target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+			</plugin>
         </plugins>
     </build>
-
-
     <dependencies>
         <dependency>
             <groupId>de.phpunit</groupId>
@@ -158,6 +163,4 @@
             <type>phar</type>
         </dependency>
     </dependencies>
-
-
 </project>

@@ -1,0 +1,17 @@
+<phpunit>
+    <testsuite name="Default module Test Suite">
+        <directory>./application/modules/default</directory>
+    </testsuite>
+	<testsuite name="Bibliothouris module Test Suite">
+        <directory>./application/modules/bibliothouris</directory>
+    </testsuite>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./php</directory>
+        </whitelist>
+    </filter>
+    <logging>
+        <log type="coverage-html" target="../../target/phpunit-reports" charset="UTF-8" yui="true" highlight="true"/>
+        <log type="coverage-clover" target="../../target/phpunit-reports/clover.xml"/>
+	</logging>
+</phpunit>
