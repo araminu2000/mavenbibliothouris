@@ -213,7 +213,7 @@ class Bibliothouris_CoursesController extends Zend_Controller_Action {
         $registerCourseForm->setAction('#');
         $registerCourseForm->populate($coursesMapper->toArray($results));
 
-        if (date("Y-m-d") > $results->getDateStart()) {
+        if (date("Y-m-d") > $results->getDateEnd()) {
             $registerCourseForm->disableEnrollment = true;
         }
 
